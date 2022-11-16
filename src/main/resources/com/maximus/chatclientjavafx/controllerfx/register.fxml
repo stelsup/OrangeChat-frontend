@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maximus.chatclientjavafx.controllerfx.RegisterController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="159.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="311.0" minWidth="10.0" prefWidth="311.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints maxHeight="181.0" minHeight="10.0" prefHeight="180.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="67.0" minHeight="0.0" prefHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="3.0" prefHeight="3.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="3.0" prefHeight="3.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="3.0" prefHeight="3.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="3.0" prefHeight="3.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="3.0" prefHeight="3.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="3.0" prefHeight="3.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="1.0" prefHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="3.0" prefHeight="3.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   <children>
+      <Label text="Логин" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+      <Label text="Имя" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <Label text="Дата рождения" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
+      <Label text="Пароль" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+      <Label text="Повторите пароль" GridPane.halignment="CENTER" GridPane.rowIndex="11" />
+      <Label text="Фамилия" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+      <Label text="Эл. почта" GridPane.halignment="CENTER" GridPane.rowIndex="13" />
+      <TextField fx:id="registerLastName" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+      <TextField fx:id="registerFirstName" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <TextField fx:id="registerLogin" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+      <TextField fx:id="registerPassword" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
+      <TextField fx:id="registerPasswordRe" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER" />
+      <TextField fx:id="registerEmail" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="13" GridPane.valignment="CENTER" />
+      <Button fx:id="registerCancelButton" mnemonicParsing="false" onAction="#registerCancelButtonOnClick" prefHeight="25.0" prefWidth="128.0" text="Отмена" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="15" />
+      <Button fx:id="registerOkButton" mnemonicParsing="false" onAction="#registerOkButtonOnClick" prefHeight="25.0" prefWidth="128.0" text="Ок" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+      <DatePicker fx:id="registerDatePicker" prefHeight="25.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
+      <Label fx:id="incorrectLastName" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <Label fx:id="incorrectFirstName" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+      <Label fx:id="incorrectLogin" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+      <Label fx:id="incorrectPassword" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
+      <Label fx:id="incorrectPasswordRe" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="12" />
+      <Label fx:id="incorrectEmail" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="14" />
+      <Label fx:id="incorrectDayOfBirth" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+   </children>
+</GridPane>
