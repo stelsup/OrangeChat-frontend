@@ -39,21 +39,29 @@ public class LoginController extends GUIController {
     @FXML
     private Label loginResultLabel;
 
+    private ButtonType btnResult;
+
     private ConfigurableApplicationContext applicationContext;
     private ProxyController proxyController;
     private UserCred userCred;
+
 
 
     @Autowired
     public LoginController(ProxyController controller, ConfigurableApplicationContext context) {
         this.applicationContext = context;
         this.proxyController = controller;
+        this.btnResult = ButtonType.CANCEL;
     }
 
 
     @Override
     public void onShow() {
 
+    }
+
+    public ButtonType getBtnResult(){
+        return btnResult;
     }
 
     @FXML
@@ -71,8 +79,10 @@ public class LoginController extends GUIController {
         //userCred.setPassword(Utils.passToHash(loginPasswordField.getText()));
 
         if(proxyController.checkCredentials(userCred)){
-            loginResultLabel.setText("Accept");
-            loginResultLabel.setTextFill(Color.web("#23AF05"));
+            btnResult = ButtonType.APPLY;
+            this.closeWindow();
+            // loginResultLabel.setText("Accept");
+           // loginResultLabel.setTextFill(Color.web("#23AF05"));
         }else{
             loginResultLabel.setText("Пользователь или пароль введены неверно!");
             loginResultLabel.setTextFill(Color.web("#AD0505"));
@@ -84,6 +94,7 @@ public class LoginController extends GUIController {
 
     @FXML
     protected void loginCancelButtonOnClick(){
+        btnResult = ButtonType.CANCEL;
         this.closeWindow();
     }
 

@@ -1,2 +1,2 @@
-# Ogange Chat frontend
-Example repository 
+# javafx-weaver-example
+Example repository for blog post about Spring Boot and JavaFX integration

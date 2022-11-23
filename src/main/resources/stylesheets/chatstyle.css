@@ -1,0 +1,89 @@
+.dark-gray-background{
+    -fx-background-color: #46474a;
+}
+
+.gray-background{
+    -fx-background-color: #636566;
+}
+
+.transparent-background{
+    -fx-background-color: #ececec;
+}
+
+.radius{
+    -fx-background-radius: 50px;
+}
+
+.chatroom-background{
+    -fx-background-color: #cbcbcb;
+}
+
+.incoming-bubble{
+    -fx-background-color: #fafafa;
+    -fx-background-radius: 20px;
+}
+
+.outgoing-bubble{
+    -fx-background-color: #ecb962;
+    -fx-background-radius: 20px;
+}
+
+
+.sidebar-btn{
+    -fx-background-color: #46474a;
+}
+
+.sidebar-btn:hover{
+    -fx-background-color: #636566;
+}
+
+.tile-bar:hover{
+    -fx-border-style: solid;
+    -fx-border-color: #cbcbcb;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+.tile-bar:pressed{
+    -fx-background-color: #46474a;
+}
+
+.interface-btn{
+    -fx-background-color: #ececec;
+}
+
+.interface-btn:hover{
+    -fx-background-color: #cbcbcb;
+}
+
+.search-btn{
+    -fx-background-color: #46474a;
+}
+
+.search-btn:hover{
+    -fx-background-color: #636566;
+}
+
+.menu-item .label {
+    -fx-text-fill: #ececec;
+}
+
+.menu-item:focused {
+    -fx-background-color: #ecb962;
+}
+
+.context-menu {
+   /* -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";*/
+    -fx-background-color: #636566;
+    -fx-background-insets: 0, 1, 2;
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
+}
+
+
+.menu-button > .arrow-button {
+    -fx-padding: 0;
+}
+
+.menu-button > .arrow-button > .arrow {
+    -fx-padding: 0;
+}

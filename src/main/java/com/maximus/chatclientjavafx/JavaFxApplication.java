@@ -1,5 +1,6 @@
 package com.maximus.chatclientjavafx;
 
+import com.maximus.chatclientjavafx.controllerfx.ChatController;
 import com.maximus.chatclientjavafx.controllerfx.LoginController;
 import com.maximus.chatclientjavafx.fxcore.GUIController;
 import com.maximus.chatclientjavafx.fxcore.GUIParam;
@@ -36,9 +37,15 @@ public class JavaFxApplication extends Application {
         Utils.showWindow(LoginController.class, fxWeaver, controller, new GUIParam(Modality.NONE, null, GUIParam.ShowType.SHOWTYPE_SHOWWAIT,
                 335, 530), "Авторизация пользователя" );
 
-        /*if(loginDialog.getBtnResult() == ButtonType.CANCEL)
+        LoginController loginController = (LoginController) controller;
+        if(loginController.getBtnResult() == ButtonType.CANCEL){
             return;
-*/
+        }
+
+        controller = applicationContext.getBean(ChatController.class);
+        Utils.showWindow(ChatController.class, fxWeaver, controller, new GUIParam(Modality.NONE, null, GUIParam.ShowType.SHOWTYPE_SHOWWAIT,
+                702, 1006), "Orange chat" );
+
     }
 
     @Override

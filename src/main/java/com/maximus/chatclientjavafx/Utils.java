@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 
@@ -16,11 +17,22 @@ import java.security.NoSuchAlgorithmException;
 public class Utils {
 
 
+    public static String getImagesPath(){
+        String path = System.getProperty("user.dir");
+        return "file:" + path + "/img/";
+    }
+
+    public static String getEtcPath() {
+        String path = System.getProperty("user.dir");
+        return path + "/etc/";
+
+    }
+
     public static void showWindow(Class<?> controllerClass, FxWeaver fxWeaver, GUIController controller, GUIParam guiParam, String title){
 
         Stage stage = new Stage();
         stage.setTitle(title);
-        //stage.getIcons().add(new Image(getImagesPath() + "general_secur.png"));
+        stage.getIcons().add(new Image(getImagesPath() + "orange 1.png"));
         Parent parent = fxWeaver.loadView(controllerClass);
         Scene scene = new Scene(parent);
         stage.initModality(guiParam.modality);
@@ -73,5 +85,14 @@ public class Utils {
         return stringHash;
     }
 
+
+    public static ImageView loadImage(String name, double width, double height){
+        Image image = new Image(Utils.getImagesPath() + name);
+        ImageView picture = new ImageView(image);
+        picture.setFitWidth(width);
+        picture.setFitHeight(height);
+
+        return picture;
+    }
 
 }
