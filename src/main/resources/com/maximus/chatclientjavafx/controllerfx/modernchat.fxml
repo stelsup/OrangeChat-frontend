@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
@@ -24,8 +25,8 @@
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="92.0" styleClass="dark-gray-background" stylesheets="@../../../../stylesheets/chatstyle.css">
                <children>
                   <Pane prefHeight="318.0" prefWidth="92.0" />
-                  <Button fx:id="siderButton1" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="75.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
-                  <Button fx:id="siderButton2" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="75.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
+                  <Button fx:id="sidebarSearchBtn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnSearchClick" prefHeight="75.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
+                  <Button fx:id="sidebarMessageBtn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnMessageClick" prefHeight="75.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
                   <Button fx:id="siderButton3" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="75.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
                   <Button fx:id="siderButton4" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="75.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
                   <Pane prefHeight="283.0" prefWidth="92.0" VBox.vgrow="ALWAYS" />
@@ -56,8 +57,8 @@
                               <Insets right="2.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button fx:id="search_btn_add" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="search-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
-                        <Button fx:id="search_btn_delete" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="search-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
+                        <Button fx:id="search_btn_add" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnAddClick" prefHeight="30.0" prefWidth="30.0" styleClass="search-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
+                        <Button fx:id="search_btn_delete" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnDeleteClick" prefHeight="30.0" prefWidth="30.0" styleClass="search-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
@@ -68,125 +69,143 @@
                      </styleClass>
                   </HBox>
                   <Pane prefHeight="5.0" prefWidth="200.0" styleClass="dark-gray-background" stylesheets="@../../../../stylesheets/chatstyle.css" />
-                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="305.0" styleClass="tile-bar" stylesheets="@../../../../stylesheets/chatstyle.css">
-                     <children>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../img/orange_avatar1.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets left="15.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <VBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="178.0">
+                  <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="506.0" prefWidth="305.0" styleClass="gray-background" stylesheets="@../../../../stylesheets/chatstyle.css" VBox.vgrow="ALWAYS">
+                     <content>
+                        <VBox fx:id="vboxLocalRooms" prefHeight="623.0" prefWidth="304.0" styleClass="gray-background" stylesheets="@../../../../stylesheets/chatstyle.css">
                            <children>
-                              <Label prefHeight="17.0" prefWidth="150.0" text="Вован" textFill="WHITE">
-                                 <font>
-                                    <Font name="Ebrima Bold" size="19.0" />
-                                 </font>
-                              </Label>
-                              <Label prefHeight="17.0" prefWidth="176.0" text="You: Last message" textFill="#aba28e">
-                                 <font>
-                                    <Font name="Ebrima" size="18.0" />
-                                 </font>
-                              </Label>
+                              <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="305.0" styleClass="tile-bar" stylesheets="@../../../../stylesheets/chatstyle.css">
+                                 <children>
+                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../../img/orange_avatar1.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets left="15.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                    <VBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="178.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="150.0" text="Вован" textFill="WHITE">
+                                             <font>
+                                                <Font name="Ebrima Bold" size="19.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="17.0" prefWidth="176.0" text="You: Last message" textFill="#aba28e">
+                                             <font>
+                                                <Font name="Ebrima" size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <padding>
+                                          <Insets left="10.0" right="10.0" />
+                                       </padding>
+                                    </VBox>
+                                    <StackPane prefHeight="70.0" prefWidth="54.0" HBox.hgrow="ALWAYS" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="305.0" styleClass="tile-bar" stylesheets="@../../../../stylesheets/chatstyle.css">
+                                 <children>
+                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../../img/orange_avatar1.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets left="15.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                    <VBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="180.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="150.0" text="Поташ" textFill="WHITE">
+                                             <font>
+                                                <Font name="Ebrima Bold" size="19.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="17.0" prefWidth="176.0" text="You: Last message" textFill="#aba28e">
+                                             <font>
+                                                <Font name="Ebrima" size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <padding>
+                                          <Insets left="10.0" right="10.0" />
+                                       </padding>
+                                    </VBox>
+                                    <StackPane prefHeight="70.0" prefWidth="54.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Circle fill="#ffd88f" radius="11.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="2.0" />
+                                          <Label alignment="CENTER" contentDisplay="CENTER" text="28" StackPane.alignment="CENTER">
+                                             <font>
+                                                <Font name="Ebrima" size="12.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </StackPane>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="305.0" styleClass="tile-bar" stylesheets="@../../../../stylesheets/chatstyle.css">
+                                 <children>
+                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../../img/orange_group_big2.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets left="15.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                    <VBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="178.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="150.0" text="Surfing" textFill="WHITE">
+                                             <font>
+                                                <Font name="Ebrima Bold" size="19.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="17.0" prefWidth="176.0" text="You: Last message" textFill="#aba28e">
+                                             <font>
+                                                <Font name="Ebrima" size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <padding>
+                                          <Insets left="10.0" right="10.0" />
+                                       </padding>
+                                    </VBox>
+                                    <StackPane prefHeight="70.0" prefWidth="54.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Circle fill="#ffd88f" radius="11.0" stroke="WHITE" strokeType="INSIDE" />
+                                          <Label alignment="CENTER" contentDisplay="CENTER" text="28" />
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </HBox>
                            </children>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <padding>
-                              <Insets left="10.0" right="10.0" />
-                           </padding>
                         </VBox>
-                        <Pane prefHeight="80.0" prefWidth="40.0" />
-                     </children>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="305.0" styleClass="tile-bar" stylesheets="@../../../../stylesheets/chatstyle.css">
-                     <children>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../img/orange_avatar1.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets left="15.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <VBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="180.0">
-                           <children>
-                              <Label prefHeight="17.0" prefWidth="150.0" text="Поташ" textFill="WHITE">
-                                 <font>
-                                    <Font name="Ebrima Bold" size="19.0" />
-                                 </font>
-                              </Label>
-                              <Label prefHeight="17.0" prefWidth="176.0" text="You: Last message" textFill="#aba28e">
-                                 <font>
-                                    <Font name="Ebrima" size="18.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <padding>
-                              <Insets left="10.0" right="10.0" />
-                           </padding>
-                        </VBox>
-                        <Pane prefHeight="80.0" prefWidth="40.0">
-                           <children>
-                              <Circle fill="#ffd88f" layoutX="20.0" layoutY="40.0" radius="11.0" stroke="WHITE" strokeType="INSIDE" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="32.0" text="28" />
-                           </children>
-                        </Pane>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="305.0" styleClass="tile-bar" stylesheets="@../../../../stylesheets/chatstyle.css">
-                     <children>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../img/orange_group_big2.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets left="15.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <VBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="178.0">
-                           <children>
-                              <Label prefHeight="17.0" prefWidth="150.0" text="Surfing" textFill="WHITE">
-                                 <font>
-                                    <Font name="Ebrima Bold" size="19.0" />
-                                 </font>
-                              </Label>
-                              <Label prefHeight="17.0" prefWidth="176.0" text="You: Last message" textFill="#aba28e">
-                                 <font>
-                                    <Font name="Ebrima" size="18.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <padding>
-                              <Insets left="10.0" right="10.0" />
-                           </padding>
-                        </VBox>
-                        <Pane prefHeight="80.0" prefWidth="40.0">
-                           <children>
-                              <Circle fill="#ffd88f" layoutX="20.0" layoutY="40.0" radius="11.0" stroke="WHITE" strokeType="INSIDE" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="32.0" text="5" />
-                           </children>
-                        </Pane>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </HBox>
+                     </content>
+                  </ScrollPane>
                </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </VBox>
          </children>
       </HBox>
@@ -318,6 +337,226 @@
                                     <Insets left="20.0" right="20.0" />
                                  </HBox.margin>
                               </ImageView>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../img/orange_avatar1.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="105.0" styleClass="incoming-bubble" stylesheets="@../../../../stylesheets/chatstyle.css" text="Ща... иду" textFill="#aba28e">
+                                 <font>
+                                    <Font name="Ebrima" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../img/orange_avatar1.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="105.0" styleClass="incoming-bubble" stylesheets="@../../../../stylesheets/chatstyle.css" text="Ща... иду" textFill="#aba28e">
+                                 <font>
+                                    <Font name="Ebrima" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../img/orange_avatar1.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="105.0" styleClass="incoming-bubble" stylesheets="@../../../../stylesheets/chatstyle.css" text="Ща... иду" textFill="#aba28e">
+                                 <font>
+                                    <Font name="Ebrima" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../img/orange_avatar1.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="105.0" styleClass="incoming-bubble" stylesheets="@../../../../stylesheets/chatstyle.css" text="Ща... иду" textFill="#aba28e">
+                                 <font>
+                                    <Font name="Ebrima" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../img/orange_avatar1.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="105.0" styleClass="incoming-bubble" stylesheets="@../../../../stylesheets/chatstyle.css" text="Ща... иду" textFill="#aba28e">
+                                 <font>
+                                    <Font name="Ebrima" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../img/orange_avatar1.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="105.0" styleClass="incoming-bubble" stylesheets="@../../../../stylesheets/chatstyle.css" text="Ща... иду" textFill="#aba28e">
+                                 <font>
+                                    <Font name="Ebrima" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../img/orange_avatar1.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="105.0" styleClass="incoming-bubble" stylesheets="@../../../../stylesheets/chatstyle.css" text="Ща... иду" textFill="#aba28e">
+                                 <font>
+                                    <Font name="Ebrima" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../img/orange_avatar1.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="105.0" styleClass="incoming-bubble" stylesheets="@../../../../stylesheets/chatstyle.css" text="Ща... иду" textFill="#aba28e">
+                                 <font>
+                                    <Font name="Ebrima" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../img/orange_avatar1.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="105.0" styleClass="incoming-bubble" stylesheets="@../../../../stylesheets/chatstyle.css" text="Ща... иду" textFill="#aba28e">
+                                 <font>
+                                    <Font name="Ebrima" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../img/orange_avatar1.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="105.0" styleClass="incoming-bubble" stylesheets="@../../../../stylesheets/chatstyle.css" text="Ща... иду" textFill="#aba28e">
+                                 <font>
+                                    <Font name="Ebrima" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../img/orange_avatar1.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="105.0" styleClass="incoming-bubble" stylesheets="@../../../../stylesheets/chatstyle.css" text="Ща... иду" textFill="#aba28e">
+                                 <font>
+                                    <Font name="Ebrima" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Label>
                            </children>
                         </HBox>
                      </children>

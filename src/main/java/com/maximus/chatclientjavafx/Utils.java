@@ -86,13 +86,6 @@ public class Utils {
     }
 
 
-    public static ImageView loadImage(String name, double width, double height){
-        Image image = new Image(Utils.getImagesPath() + name);
-        ImageView picture = new ImageView(image);
-        picture.setFitWidth(width);
-        picture.setFitHeight(height);
 
-        return picture;
-    }
 
 }

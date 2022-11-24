@@ -1,9 +1,8 @@
 package com.maximus.chatclientjavafx.controllerfx;
 
 import com.maximus.chatclientjavafx.Utils;
-import com.maximus.chatclientjavafx.controller.ProxyController;
 import com.maximus.chatclientjavafx.fxcore.GUIController;
-import com.maximus.chatclientjavafx.model.UserData;
+import com.maximus.chatclientjavafx.service.ProxyService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -42,11 +41,11 @@ public class RegisterController extends GUIController {
     @FXML
     private Label incorrectLastName, incorrectFirstName, incorrectLogin, incorrectDayOfBirth, incorrectPassword, incorrectPasswordRe, incorrectEmail;
 
-    private ProxyController proxyController;
+    private final ProxyService service;
 
 
-    public RegisterController(ProxyController proxyController){
-        this.proxyController = proxyController;
+    public RegisterController(ProxyService service){
+        this.service = service;
     }
 
     @Override
@@ -66,7 +65,6 @@ public class RegisterController extends GUIController {
         letterFirst = new TextFormatter<>(filter);
         registerLastName.setTextFormatter(letterLast);
         registerFirstName.setTextFormatter(letterFirst);
-
 
     }
 
@@ -90,7 +88,7 @@ public class RegisterController extends GUIController {
 
         resetNotification();
 
-        if(!checkCredentials()){
+        if(!inputValidation()){
             return;
         }
 
@@ -101,9 +99,7 @@ public class RegisterController extends GUIController {
         String email = registerEmail.getText();
         LocalDate dateOfBirth = registerDatePicker.getValue();
 
-
-        UserData userData = new UserData(lastName, firstName, login, password, email, dateOfBirth);
-        if(proxyController.createUser(userData)){
+        if(service.registerUser(lastName, firstName, login, password, email, dateOfBirth)){
             Utils.MessageBox( "Регистрация", "Подтверждение email",
                     "Регистрация успешно завершена. На Вашу почту выслано письмо с подтверждением",
                     Alert.AlertType.INFORMATION);
@@ -133,7 +129,7 @@ public class RegisterController extends GUIController {
         incorrectEmail.setText("");
     }
 
-    protected boolean checkCredentials(){
+    protected boolean inputValidation(){
 
         boolean result = true;
 

@@ -1,12 +1,9 @@
 package com.maximus.chatclientjavafx.controllerfx;
 
 import com.maximus.chatclientjavafx.Utils;
-import com.maximus.chatclientjavafx.WeatherService;
-import com.maximus.chatclientjavafx.controller.ProxyController;
 import com.maximus.chatclientjavafx.fxcore.GUIController;
 import com.maximus.chatclientjavafx.fxcore.GUIParam;
-import com.maximus.chatclientjavafx.model.UserCred;
-import javafx.event.ActionEvent;
+import com.maximus.chatclientjavafx.service.ProxyService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
@@ -41,16 +38,14 @@ public class LoginController extends GUIController {
 
     private ButtonType btnResult;
 
-    private ConfigurableApplicationContext applicationContext;
-    private ProxyController proxyController;
-    private UserCred userCred;
-
+    private final ConfigurableApplicationContext applicationContext;
+    private final ProxyService service;
 
 
     @Autowired
-    public LoginController(ProxyController controller, ConfigurableApplicationContext context) {
+    public LoginController(ConfigurableApplicationContext context, ProxyService service) {
         this.applicationContext = context;
-        this.proxyController = controller;
+        this.service = service;
         this.btnResult = ButtonType.CANCEL;
     }
 
@@ -72,17 +67,10 @@ public class LoginController extends GUIController {
 
     @FXML
     protected void loginOkButtonOnClick(){
-        userCred = new UserCred();
-        userCred.setUserName(loginTextField.getText());
-        userCred.setPassword(loginPasswordField.getText());
-        // TODO Maybe on Backend?
-        //userCred.setPassword(Utils.passToHash(loginPasswordField.getText()));
 
-        if(proxyController.checkCredentials(userCred)){
+        if(service.checkCredentials(loginTextField.getText(), loginPasswordField.getText())){
             btnResult = ButtonType.APPLY;
             this.closeWindow();
-            // loginResultLabel.setText("Accept");
-           // loginResultLabel.setTextFill(Color.web("#23AF05"));
         }else{
             loginResultLabel.setText("Пользователь или пароль введены неверно!");
             loginResultLabel.setTextFill(Color.web("#AD0505"));
