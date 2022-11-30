@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -55,11 +56,15 @@ public class Utils {
 
     public static ButtonType MessageBox(String title, String text, String textDetails, Alert.AlertType type) {
         Alert alert = new Alert(type);
-        Stage dialog = (Stage) alert.getDialogPane().getScene().getWindow();
-        //dialog.getIcons().add(new Image(getImagesPath() + "general_secur.png"));
         alert.setTitle(title);
         alert.setHeaderText(text);
         alert.setContentText(textDetails);
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add("dialogpanestyle.css");
+        dialogPane.getStyleClass().add("my-dialog-pane");
+        Stage dialog = (Stage) dialogPane.getScene().getWindow();
+        dialog.getIcons().add(new Image(getImagesPath() + "orange 1.png"));
+
 
         alert.showAndWait().ifPresent(rs -> {
             if (rs == ButtonType.OK) {

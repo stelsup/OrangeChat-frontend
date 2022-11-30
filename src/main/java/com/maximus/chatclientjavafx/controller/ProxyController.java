@@ -1,14 +1,12 @@
 package com.maximus.chatclientjavafx.controller;
 
 import com.maximus.chatclientjavafx.model.UserCred;
-import com.maximus.chatclientjavafx.model.UserData;
+import com.maximus.chatclientjavafx.model.User;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import java.util.UUID;
 
 @Component
 public class ProxyController {
@@ -38,11 +36,11 @@ public class ProxyController {
         return response.getBody();
     }
 
-    public boolean createUser(UserData userData){
+    public boolean createUser(User user){
 
         String uri = proxyURL + "/register";
 
-        HttpEntity<UserData> httpEntity = new HttpEntity<>(userData);
+        HttpEntity<User> httpEntity = new HttpEntity<>(user);
 
         ResponseEntity<Boolean> response = rest.exchange(uri, HttpMethod.POST, httpEntity, Boolean.class);
         return response.getBody();

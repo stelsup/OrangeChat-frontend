@@ -1,4 +1,4 @@
-package com.maximus.chatclientjavafx.controllerfx;
+package com.maximus.chatclientjavafx.fxcontroller;
 
 import com.maximus.chatclientjavafx.Utils;
 import com.maximus.chatclientjavafx.fxcore.GUIController;

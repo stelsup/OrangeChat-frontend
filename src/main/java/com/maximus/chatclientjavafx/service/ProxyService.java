@@ -2,7 +2,8 @@ package com.maximus.chatclientjavafx.service;
 
 import com.maximus.chatclientjavafx.controller.ProxyController;
 import com.maximus.chatclientjavafx.model.UserCred;
-import com.maximus.chatclientjavafx.model.UserData;
+import com.maximus.chatclientjavafx.model.User;
+import com.maximus.chatclientjavafx.model.UserInfo;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +34,9 @@ public class ProxyService {
     public boolean registerUser(String lastName, String firstName, String login,
                                 String password, String email, LocalDate dateOfBirth) {
 
-        UserData userData = new UserData(lastName, firstName, login, password, email, dateOfBirth);
+        User user = new User(new UserInfo(login, firstName, lastName, dateOfBirth), password, email);
 
-        return proxyController.createUser(userData);
+        return proxyController.createUser(user);
 
     }
 }

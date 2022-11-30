@@ -1,12 +1,11 @@
 package com.maximus.chatclientjavafx;
 
-import com.maximus.chatclientjavafx.controllerfx.ChatController;
-import com.maximus.chatclientjavafx.controllerfx.LoginController;
+import com.maximus.chatclientjavafx.fxcontroller.ChatController;
+import com.maximus.chatclientjavafx.fxcontroller.LoginController;
 import com.maximus.chatclientjavafx.fxcore.GUIController;
 import com.maximus.chatclientjavafx.fxcore.GUIParam;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;

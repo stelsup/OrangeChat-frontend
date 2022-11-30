@@ -18,7 +18,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="1006.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maximus.chatclientjavafx.controllerfx.ChatController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="1006.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maximus.chatclientjavafx.fxcontroller.ChatController">
    <left>
       <HBox prefHeight="702.0" prefWidth="387.0" BorderPane.alignment="CENTER">
          <children>
@@ -27,10 +27,10 @@
                   <Pane prefHeight="318.0" prefWidth="92.0" />
                   <Button fx:id="sidebarSearchBtn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnSearchClick" prefHeight="75.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
                   <Button fx:id="sidebarMessageBtn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnMessageClick" prefHeight="75.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
-                  <Button fx:id="siderButton3" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="75.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
-                  <Button fx:id="siderButton4" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="75.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
+                  <Button fx:id="sidebarProfileBtn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnProfileClick" prefHeight="75.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
+                  <Button fx:id="sidebarSettingsBtn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnSettingsClick" prefHeight="75.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
                   <Pane prefHeight="283.0" prefWidth="92.0" VBox.vgrow="ALWAYS" />
-                  <Button fx:id="siderButton5" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button">
+                  <Button fx:id="sidebarExitBtn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnExitClick" prefHeight="60.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button">
                      <VBox.margin>
                         <Insets bottom="25.0" />
                      </VBox.margin>
@@ -39,7 +39,7 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="315.0" styleClass="gray-background" stylesheets="@../../../../stylesheets/chatstyle.css">
                <children>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" stylesheets="@../../../../stylesheets/chatstyle.css">
+                  <HBox fx:id="hboxSearchBar" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" stylesheets="@../../../../stylesheets/chatstyle.css">
                      <children>
                         <ImageView fitHeight="26.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -213,9 +213,9 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="200.0" styleClass="transparent-background" stylesheets="@../../../../stylesheets/chatstyle.css">
+            <HBox fx:id="hboxRoomHeader" alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="200.0" styleClass="transparent-background" stylesheets="@../../../../stylesheets/chatstyle.css">
                <children>
-                  <Label prefHeight="31.0" prefWidth="79.0" text="Вован" textFill="#9da7a7">
+                  <Label prefHeight="30.0" prefWidth="80.0" text="Вован" textFill="#9da7a7">
                      <font>
                         <Font name="Ebrima Bold" size="24.0" />
                      </font>
@@ -223,15 +223,12 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </Label>
-                  <Circle fill="#3ead7d" radius="6.0" stroke="WHITE" strokeType="INSIDE" />
-                  <Label text="Online" textFill="#9da7a7">
-                     <font>
-                        <Font name="Ebrima" size="16.0" />
-                     </font>
+                  <Circle fill="#3ead7d" radius="6.0" stroke="WHITE" strokeType="OUTSIDE" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="48.0">
                      <HBox.margin>
-                        <Insets left="5.0" />
+                        <Insets left="10.0" />
                      </HBox.margin>
-                  </Label>
+                  </HBox>
                   <Pane prefHeight="80.0" prefWidth="302.0" HBox.hgrow="ALWAYS" />
                   <MenuButton fx:id="interface_btn_menu" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" styleClass="interface-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="MenuButton">
                     <items>
@@ -267,6 +264,9 @@
                                  </HBox.margin>
                               </Label>
                            </children>
+                           <VBox.margin>
+                              <Insets top="2.0" />
+                           </VBox.margin>
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="200.0">
                            <children>
@@ -284,6 +284,9 @@
                                  </HBox.margin>
                               </ImageView>
                            </children>
+                           <VBox.margin>
+                              <Insets top="2.0" />
+                           </VBox.margin>
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="200.0">
                            <children>
@@ -338,6 +341,9 @@
                                  </HBox.margin>
                               </ImageView>
                            </children>
+                           <VBox.margin>
+                              <Insets top="2.0" />
+                           </VBox.margin>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0">
                            <children>
