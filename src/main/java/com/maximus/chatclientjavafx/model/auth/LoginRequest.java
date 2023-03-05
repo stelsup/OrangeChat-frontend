@@ -1,10 +1,22 @@
-package com.maximus.chatclientjavafx.model;
+package com.maximus.chatclientjavafx.model.auth;
 
-public class UserCred {
+public class LoginRequest {
 
+    //private MessageType msgType = MessageType.USER_CRED_TYPE;
     private String userName;
     private String password;
 
+    /*
+    public MessageType getMsgType() {
+        return msgType;
+    }
+
+    public void setMsgType(MessageType msgType) {
+        this.msgType = msgType;
+    }
+
+
+     */
     public String getUserName() {
         return userName;
     }
@@ -20,4 +32,5 @@ public class UserCred {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

@@ -1,0 +1,36 @@
+.dark-gray-background{
+    -fx-background-color: #46474a;
+}
+
+.transparent-background{
+    -fx-background-color: #ececec;
+}
+
+.radius{
+    -fx-background-radius: 50px;
+}
+
+.dialog-btn{
+    -fx-background-color: #ececec;
+    -fx-background-radius: 20px;
+}
+
+.dialog-btn:hover{
+    -fx-background-color: #ecb962;
+    -fx-effect: dropshadow(gaussian,#ecb962,5.0,0.7,0.0,0.0);
+    -fx-text-fill:  white;
+}
+
+
+.edit-btn{
+    -fx-background-color: #46474a;
+}
+
+.edit-btn:hover{
+    -fx-background-color: #636566;
+}
+
+.text-field-color{
+    -fx-background-color: #46474a;
+    -fx-text-inner-color: #ececec;
+}

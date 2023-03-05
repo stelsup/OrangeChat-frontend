@@ -1,5 +1,36 @@
 
-.my-dialog-pane {
-    -fx-background-color: #46474a;
-    -fx-text-fill: #ececec;
+.button {
+    -fx-background-color: #ececec;
+    -fx-background-radius: 20px;
 }
+
+.button:hover {
+    -fx-background-color: #ecb962;
+    -fx-effect: dropshadow(gaussian,#ecb962,5.0,0.7,0.0,0.0);
+    -fx-text-fill:  white;
+}
+
+
+.dialog-pane {
+    -fx-background-color: #46474a;
+}
+.dialog-pane > *.button-bar > *.container{
+    -fx-background-color: #46474a;
+}
+
+.dialog-pane > *.button-bar > *.button{
+    -fx-pref-width: 120px;
+}
+
+.dialog-pane > *.label.content{
+    -fx-font-size: 14px;
+    -fx-text-fill: WHITE;
+}
+.dialog-pane:header .header-panel{
+    -fx-background-color: #46474a;
+}
+.dialog-pane:header .header-panel *.label{
+    -fx-font-size: 18px;
+    -fx-text-fill: WHITE;
+}
+

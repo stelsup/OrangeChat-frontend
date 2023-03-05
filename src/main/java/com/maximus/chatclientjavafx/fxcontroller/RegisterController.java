@@ -2,7 +2,7 @@ package com.maximus.chatclientjavafx.fxcontroller;
 
 import com.maximus.chatclientjavafx.Utils;
 import com.maximus.chatclientjavafx.fxcore.GUIController;
-import com.maximus.chatclientjavafx.service.ProxyService;
+import com.maximus.chatclientjavafx.service.AuthService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -41,10 +41,10 @@ public class RegisterController extends GUIController {
     @FXML
     private Label incorrectLastName, incorrectFirstName, incorrectLogin, incorrectDayOfBirth, incorrectPassword, incorrectPasswordRe, incorrectEmail;
 
-    private final ProxyService service;
+    private final AuthService service;
 
 
-    public RegisterController(ProxyService service){
+    public RegisterController(AuthService service){
         this.service = service;
     }
 
@@ -102,12 +102,12 @@ public class RegisterController extends GUIController {
         if(service.registerUser(lastName, firstName, login, password, email, dateOfBirth)){
             Utils.MessageBox( "Регистрация", "Подтверждение email",
                     "Регистрация успешно завершена. На Вашу почту выслано письмо с подтверждением",
-                    Alert.AlertType.INFORMATION);
+                    Alert.AlertType.INFORMATION, getClass());
             //TODO добавить отправку подтверждения на почту
         }else{
             Utils.MessageBox( "Регистрация", "Регистрация невозможна!",
                     "Пользователь с таким login или email уже существует. Воспользуйтесь восстановлением аккаунта, если забыли свой пароль.",
-                    Alert.AlertType.WARNING);
+                    Alert.AlertType.WARNING, getClass());
         }
         this.closeWindow();
 

@@ -4,6 +4,11 @@ package com.maximus.chatclientjavafx.fxcontroller;
 import com.maximus.chatclientjavafx.GUIUtils;
 import com.maximus.chatclientjavafx.Utils;
 import com.maximus.chatclientjavafx.fxcore.GUIController;
+import com.maximus.chatclientjavafx.fxcore.GUIParam;
+import com.maximus.chatclientjavafx.service.IncomingMessageService;
+import com.maximus.chatclientjavafx.service.OutcomingMessageService;
+import com.maximus.chatclientjavafx.service.ConnectionService;
+import com.maximus.chatdto.UserInfo;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -12,7 +17,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
 
@@ -63,11 +71,42 @@ public class ChatController extends GUIController {
     @FXML
     private HBox hboxRoomHeader;
 
+    ////////////////////////////////////////
+    ////////////   Cursor  /////////////////
+
+    private Button currentSideBtn;
 
     private HBox currentTile;
 
+    ////////////////////////////////////////
+
+    private final ConfigurableApplicationContext applicationContext;
+    private final ConnectionService connectionService;
+    private final OutcomingMessageService outcomingMessageService;
+    private final IncomingMessageService incomingMessageService;
+
+
+
+    public ChatController(ConfigurableApplicationContext context, ConnectionService service,
+                          OutcomingMessageService outcomingMessageService, IncomingMessageService incomingMessageService){
+        this.applicationContext = context;
+        this.connectionService = service;
+        this.outcomingMessageService = outcomingMessageService;
+        this.incomingMessageService = incomingMessageService;
+    }
+
+
     @Override
     public void onShow() {
+
+        if(connectionService.connectToServer()){
+            outcomingMessageService.getMyProfile();
+        }else{
+            Utils.MessageBox( "Внимание", "Нет подключения к серверу",
+                    "Не удалось установить соединение с сервером!",
+                    Alert.AlertType.WARNING, getClass());
+        }
+
 
     }
 
@@ -95,10 +134,26 @@ public class ChatController extends GUIController {
     @FXML
     protected void onBtnAddClick() {
 
-        HBox newRoom = GUIUtils.addRoomTile("New User", "Last message",
-                "orange_avatar1.png", 10, true );
-        newRoom.setOnMouseClicked(event -> {createChatRoom(newRoom);});
-        vboxLocalRooms.getChildren().add(newRoom);
+        if(currentSideBtn == sidebarMessageBtn){
+
+            FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
+            GUIController controller = applicationContext.getBean(NewRoomController.class);
+            Utils.showWindow(NewRoomController.class, fxWeaver, controller, new GUIParam(Modality.APPLICATION_MODAL, null, GUIParam.ShowType.SHOWTYPE_SHOWWAIT,
+                    350, 550), "Создание чата" );
+
+
+        }
+
+
+//        UserInfo test_info = chatService.getMyUserInfo();
+//
+//        test_info.setFirstName("Васян");
+//        chatService.editMyUserInfo(test_info);
+
+//        HBox newRoom = GUIUtils.addRoomTile("New User", "Last message",
+//                "orange_avatar1.png", 10, true );
+//        newRoom.setOnMouseClicked(event -> {createChatRoom(newRoom);});
+//        vboxLocalRooms.getChildren().add(newRoom);
 
     }
 
@@ -115,6 +170,8 @@ public class ChatController extends GUIController {
 
     @FXML
     protected void onBtnSearchClick(){
+
+        currentSideBtn = sidebarSearchBtn;  //// navigation
         hboxSearchBar.setDisable(false);
         vboxLocalRooms.getChildren().clear();
         vboxLocalRooms.setAlignment(Pos.CENTER);
@@ -126,10 +183,13 @@ public class ChatController extends GUIController {
     @FXML
     protected void onBtnMessageClick(){
         HBox vovan = GUIUtils.addRoomTile("Вован", "Last message", "orange_avatar1.png",0, false );
-        vovan.setOnMouseClicked(event -> {createChatRoom(vovan);});
+        vovan.setOnMouseClicked(event -> {
+            createChatWindow(vovan);});
         HBox potash = GUIUtils.addRoomTile("Поташ", "Last message", "orange_avatar1.png", 28, true );
-        potash.setOnMouseClicked(event -> {createChatRoom(potash);});
+        potash.setOnMouseClicked(event -> {
+            createChatWindow(potash);});
 
+        currentSideBtn = sidebarMessageBtn;
         hboxSearchBar.setDisable(false);
         vboxLocalRooms.getChildren().clear();
         vboxLocalRooms.setAlignment(Pos.TOP_LEFT);
@@ -141,14 +201,15 @@ public class ChatController extends GUIController {
     @FXML
     protected  void onBtnProfileClick(){
         HBox myProfile = GUIUtils.addMenuTile("Мой профиль", "profile.png");
-        myProfile.setOnMouseClicked(event -> {currentTile = myProfile;});
+        myProfile.setOnMouseClicked(event -> {openProfileWindow(myProfile);});
         HBox notification = GUIUtils.addMenuTile("Уведомления", "notification.png");
         notification.setOnMouseClicked(event -> {currentTile = notification;});
         HBox security = GUIUtils.addMenuTile("Безопасность", "security.png");
-        security.setOnMouseClicked(event -> {currentTile = security;});
+        security.setOnMouseClicked(event -> {openSecurityWindow(security);});
         HBox statistic = GUIUtils.addMenuTile("Статистика", "statistics.png");
         statistic.setOnMouseClicked(event -> {currentTile = statistic;});
 
+        currentSideBtn = sidebarProfileBtn;
         hboxSearchBar.setDisable(true);
         vboxLocalRooms.getChildren().clear();
         vboxLocalRooms.setAlignment(Pos.TOP_LEFT);
@@ -163,6 +224,7 @@ public class ChatController extends GUIController {
         HBox securitySettings = GUIUtils.addMenuTile("Настройки безопасности", "security_settings.png");
         securitySettings.setOnMouseClicked(event -> {currentTile = securitySettings;});
 
+        currentSideBtn = sidebarSettingsBtn;
         hboxSearchBar.setDisable(true);
         vboxLocalRooms.getChildren().clear();
         vboxLocalRooms.setAlignment(Pos.TOP_LEFT);
@@ -172,20 +234,53 @@ public class ChatController extends GUIController {
 
     @FXML
     protected void onBtnExitClick(){
-
+        //String path = getClass().getResource("/stylesheets/dialogpanestyle.css").toString();
         ButtonType result = Utils.MessageBox("Предупреждение", "Выйти из профиля",
-                "Вы уверены, что хотите выйти из профиля ?", Alert.AlertType.CONFIRMATION);
+                "Вы уверены, что хотите выйти из профиля ?", Alert.AlertType.CONFIRMATION, getClass());
 
         if(result == ButtonType.OK)
             this.closeWindow();
     }
 
-    protected void createChatRoom(HBox currentRoom){
+    protected void createChatWindow(HBox currentRoom){
 
         currentTile = currentRoom;
         String roomName = GUIUtils.searchRoomName(currentRoom);
         hboxRoomHeader.getChildren().set(0,GUIUtils.createRoomHeaderName(roomName));
         hboxRoomHeader.getChildren().set(1,GUIUtils.changeStatus("Online"));
+
+
+    }
+
+
+    protected void openProfileWindow(HBox currentMenuTile){
+
+        currentTile = currentMenuTile;
+
+        FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
+        GUIController controller = applicationContext.getBean(ProfileController.class);
+        Utils.showWindow(ProfileController.class, fxWeaver, controller, new GUIParam(Modality.APPLICATION_MODAL, null, GUIParam.ShowType.SHOWTYPE_SHOWWAIT,
+                600, 500), "Мой профиль" );
+
+
+    }
+
+    protected void openNotificationWindow(HBox currentMenuTile){
+
+
+    }
+
+    protected void openSecurityWindow(HBox currentMenuTile){
+
+        currentTile = currentMenuTile;
+        FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
+        GUIController controller = applicationContext.getBean(ProfileSecurityController.class);
+        Utils.showWindow(ProfileSecurityController.class, fxWeaver, controller, new GUIParam(Modality.APPLICATION_MODAL, null, GUIParam.ShowType.SHOWTYPE_SHOWWAIT,
+                600, 500), "Настройки безопастности" );
+
+    }
+
+    protected void openStatisticWindow(HBox currentMenuTile){
 
 
     }

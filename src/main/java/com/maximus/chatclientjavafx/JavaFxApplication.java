@@ -18,6 +18,7 @@ public class JavaFxApplication extends Application {
     private ConfigurableApplicationContext applicationContext;
     private FxWeaver fxWeaver;
     private GUIController controller;
+    //private ProxyService restService;
 
     @Override
     public void init() {

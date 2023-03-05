@@ -1,0 +1,81 @@
+.dark-gray-background{
+    -fx-background-color: #46474a;
+}
+
+.transparent-background{
+    -fx-background-color: #ececec;
+}
+
+.radius{
+    -fx-background-radius: 50px;
+}
+
+
+.member-bubble{
+    -fx-background-color: #fddf98;
+    -fx-background-radius: 10px;
+}
+
+.delete-btn{
+    -fx-background-color: #fddf98;
+    -fx-opacity: 0;
+}
+
+.delete-btn:hover{
+    /*-fx-graphic: url("..\..\..\..\..\img\orange_avatar1.png");*/
+    -fx-opacity: 1;
+}
+
+.edit-btn{
+    -fx-background-color: #46474a;
+}
+
+.edit-btn:hover{
+    -fx-background-color: #636566;
+}
+
+
+.dialog-btn{
+    -fx-background-color: #ececec;
+    -fx-background-radius: 20px;
+}
+
+.dialog-btn:hover{
+    -fx-background-color: #ecb962;
+    -fx-effect: dropshadow(gaussian,#ecb962,5.0,0.7,0.0,0.0);
+    -fx-text-fill:  white;
+}
+
+
+.text-field-color{
+    -fx-background-color: #46474a;
+    -fx-text-inner-color: #ececec;
+}
+
+.text-area {
+    text-area-background: #636566;
+
+}
+
+.text-area .content {
+    -fx-background-color: #636566 ;
+    -fx-text-inner-color: #ececec;
+}
+
+
+.titled-pane > .title
+{
+    -fx-background-color: #46474a, #636566, #46474a;
+}
+
+.titled-pane:focused > .title
+{
+    -fx-color: #636566;
+}
+
+.titled-pane > *.content
+{
+    -fx-background-color: #636566, #636566, #636566;
+    -fx-background-insets: 0, 0 1 1 1;
+    -fx-padding: 0.167em;
+}

@@ -4,6 +4,8 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -212,6 +214,34 @@ public class GUIUtils {
         return messageBox;
 
     }
+
+    public static HBox addMember(String name, String imageName){
+        HBox member = new HBox();
+        member.setMinWidth(50);
+        member.setPrefWidth(150);
+        member.setPrefHeight(100);
+        member.setFillHeight(true);
+        member.setAlignment(Pos.CENTER_LEFT);
+        member.getStyleClass().add("member-bubble");
+
+        ImageView avatar = GUIUtils.loadImage(imageName, 35,35);
+        HBox.setMargin(avatar, new Insets(1,0,1,6));
+
+        Label memberName = new Label(name);
+        memberName.setFont(Font.font("Ebrima", 13));
+        memberName.setTextFill(Color.web("#2f2f2f"));
+        HBox.setMargin(memberName, new Insets(0,0,0,2));
+
+        Pane pane = new Pane();
+        pane.setPrefWidth(2);
+        HBox.setHgrow(pane, Priority.ALWAYS);
+
+        member.getChildren().add(avatar);
+        member.getChildren().add(memberName);
+        member.getChildren().add(pane);
+        return member;
+    }
+
 
 
 

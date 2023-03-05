@@ -3,7 +3,7 @@ package com.maximus.chatclientjavafx.fxcontroller;
 import com.maximus.chatclientjavafx.Utils;
 import com.maximus.chatclientjavafx.fxcore.GUIController;
 import com.maximus.chatclientjavafx.fxcore.GUIParam;
-import com.maximus.chatclientjavafx.service.ProxyService;
+import com.maximus.chatclientjavafx.service.AuthService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
@@ -39,11 +39,11 @@ public class LoginController extends GUIController {
     private ButtonType btnResult;
 
     private final ConfigurableApplicationContext applicationContext;
-    private final ProxyService service;
+    private final AuthService service;
 
 
     @Autowired
-    public LoginController(ConfigurableApplicationContext context, ProxyService service) {
+    public LoginController(ConfigurableApplicationContext context, AuthService service) {
         this.applicationContext = context;
         this.service = service;
         this.btnResult = ButtonType.CANCEL;
@@ -69,10 +69,10 @@ public class LoginController extends GUIController {
     protected void loginOkButtonOnClick(){
 
         if(service.checkCredentials(loginTextField.getText(), loginPasswordField.getText())){
-            btnResult = ButtonType.APPLY;
+            btnResult = ButtonType.OK;
             this.closeWindow();
         }else{
-            loginResultLabel.setText("Пользователь или пароль введены неверно!");
+            loginResultLabel.setText(service.getErrorMessage().getMessage());
             loginResultLabel.setTextFill(Color.web("#AD0505"));
             /*Utils.MessageBox( "Ошибка", "Ошибка","Пользователь или пароль введены неверно!",
                     Alert.AlertType.WARNING);*/
