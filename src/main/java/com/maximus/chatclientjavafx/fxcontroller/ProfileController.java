@@ -1,23 +1,18 @@
 package com.maximus.chatclientjavafx.fxcontroller;
 
-import com.maximus.chatclientjavafx.GUIUtils;
-import com.maximus.chatclientjavafx.Utils;
+import com.maximus.chatclientjavafx.displaymanager.ECurrentPageTile;
+import com.maximus.chatclientjavafx.utils.GUIUtils;
+import com.maximus.chatclientjavafx.utils.Utils;
 import com.maximus.chatclientjavafx.fxcore.GUIController;
-import com.maximus.chatclientjavafx.service.IncomingMessageService;
-import com.maximus.chatclientjavafx.service.OutcomingMessageService;
-import com.maximus.chatclientjavafx.storage.ChatStorage;
-import javafx.event.ActionEvent;
+import com.maximus.chatclientjavafx.displaymanager.DisplayManager;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
+import com.maximus.chatdto.ProfileInfo;
 
 
 @Component
@@ -40,7 +35,7 @@ public class ProfileController extends GUIController {
     private TextField loginTextfield;
 
     @FXML
-    private TextField dateOfBirthTextfield;
+    private DatePicker dateOfBirthField;
 
     @FXML
     private TextField emailTextfield;
@@ -54,28 +49,27 @@ public class ProfileController extends GUIController {
     @FXML
     private Button editLoginBtn;
 
-    @FXML
-    private Button editDateofBirthBtn;
 
-    private final OutcomingMessageService outcomingMessageService;
-    private final IncomingMessageService incomingMessageService;
-    private final ChatStorage chatStorage;
+    ////////////////////////////////////////////////
+    private final DisplayManager displayManager;
+    ////////////////////////////////////////////////
+
 
     private boolean edited = false;
 
 
-    public ProfileController(OutcomingMessageService outcomingMessageService, IncomingMessageService incomingMessageService,
-                             ChatStorage chatStorage){
-        this.outcomingMessageService = outcomingMessageService;
-        this.incomingMessageService = incomingMessageService;
-        this.chatStorage = chatStorage;
+    public ProfileController(DisplayManager displayManager) {
+        this.displayManager = displayManager;
     }
 
 
 
     @Override
     public void onShow() {
-        outcomingMessageService.getMyProfile();
+//        EnableTimer(0, 50);
+        displayManager.getDisplayNavigator().setCurrentPageTile(ECurrentPageTile.E_TILE_PROFILE);
+
+        displayManager.requestMyProfile();
     }
 
     @FXML
@@ -84,31 +78,45 @@ public class ProfileController extends GUIController {
         editLastNameBtn.setGraphic(GUIUtils.loadImage("editPen-40.png", 30, 30));
         editFirstNameBtn.setGraphic(GUIUtils.loadImage("editPen-40.png", 30, 30));
         editLoginBtn.setGraphic(GUIUtils.loadImage("editPen-40.png", 30, 30));
-        editDateofBirthBtn.setGraphic(GUIUtils.loadImage("editPen-40.png", 30, 30));
         lastNameTextfield.setEditable(false);
         firstNameTextfield.setEditable(false);
         loginTextfield.setEditable(false);
-        dateOfBirthTextfield.setEditable(false);
+        dateOfBirthField.setEditable(false);
         emailTextfield.setEditable(false);
 
     }
 
-
-
     @FXML
     protected void profileOkButtonOnClick(){
 
-        if(edited){
-            Utils.MessageBox( "Внимание", "Сохранить изменения?",
+        if(edited) {
+            resetNotification();
+
+            if(!inputValidation()) {
+                return;
+            }
+
+            if(Utils.MessageBox( "Внимание", "Сохранить изменения?",
                     "Данные вашего профиля были изменены. Сохранить изменения?",
-                    Alert.AlertType.INFORMATION, getClass());
-            //// послать на сервер
+                    Alert.AlertType.INFORMATION, getClass()) == ButtonType.OK) {
+
+                ProfileInfo info = displayManager.getCurrentProfileInfo();
+                info.setLogin(loginTextfield.getText());
+                info.setFirstName(firstNameTextfield.getText());
+                info.setLastName(lastNameTextfield.getText());
+                //info.setAvatar();  // ???
+                info.setDateOfBirth(dateOfBirthField.getValue());
+
+                displayManager.requestChangeMyProfile(info);
+            }
         }
+        displayManager.getDisplayNavigator().setCurrentPageTile(ECurrentPageTile.E_TILE_NONE);
         this.closeWindow();
     }
 
     @FXML
     protected void profileCancelButtonOnClick(){
+        displayManager.getDisplayNavigator().setCurrentPageTile(ECurrentPageTile.E_TILE_NONE);
         this.closeWindow();
     }
 
@@ -133,15 +141,74 @@ public class ProfileController extends GUIController {
     @FXML
     protected void editDateofBirthBtnOnClick(){
         this.edited = true;
-        this.dateOfBirthTextfield.setEditable(true);
     }
 
-
-    public void setProfileInformation(){
-
-        /////// Вывести информацию о пользвателе
+    protected void resetNotification(){
+        serviceLabel.setText("");
 
     }
 
+    protected boolean inputValidation(){
 
+        boolean result = true;
+
+        if(lastNameTextfield.getText().length() > 80 || lastNameTextfield.getText().isEmpty()){
+            result = false;
+        }
+        if(firstNameTextfield.getText().length() > 80 || firstNameTextfield.getText().isEmpty()){
+            result = false;
+        }
+        if(loginTextfield.getText().length() > 30 || loginTextfield.getText().isEmpty()){
+            result = false;
+        }
+        if(!result)
+            serviceLabel.setText("Некорректные данные!!!");
+
+        return result;
+    }
+
+    //------------
+    //  Remote call
+    //------------
+    public void showProfileInformation(ProfileInfo info){
+//
+//        Platform.runLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                if(info != null) {
+//                    lastNameTextfield.setText(info.getLastName());
+//                    firstNameTextfield.setText(info.getFirstName());
+//                    loginTextfield.setText(info.getLogin());
+//                    dateOfBirthField.setValue(info.getDateOfBirth());
+//                    emailTextfield.setText(info.getEmail());
+//                }
+//            }
+//        });
+    }
+
+    public void showProfileInformation() {
+        ProfileInfo info = displayManager.getCurrentProfileInfo();
+        if(info != null) {
+            lastNameTextfield.setText(info.getLastName());
+            firstNameTextfield.setText(info.getFirstName());
+            loginTextfield.setText(info.getLogin());
+            dateOfBirthField.setValue(info.getDateOfBirth());
+            emailTextfield.setText(info.getEmail());
+        }
+
+    }
+
+    protected void TimerFunc() {
+//        while(true) {
+//           // waitRefresh();
+//            ProfileInfo info = displayManager.getCurrentProfileInfo();
+//            if(info != null) {
+//                lastNameTextfield.setText(info.getLastName());
+//                firstNameTextfield.setText(info.getFirstName());
+//                loginTextfield.setText(info.getLogin());
+//                dateOfBirthField.setValue(info.getDateOfBirth());
+//                emailTextfield.setText(info.getEmail());
+//            }
+//        }
+    }
 }

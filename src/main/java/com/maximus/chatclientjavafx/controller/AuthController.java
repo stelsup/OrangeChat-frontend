@@ -2,7 +2,7 @@ package com.maximus.chatclientjavafx.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.maximus.chatclientjavafx.Utils;
+import com.maximus.chatclientjavafx.utils.Utils;
 import com.maximus.chatclientjavafx.model.auth.JwtResponse;
 import com.maximus.chatclientjavafx.model.auth.MessageResponse;
 import com.maximus.chatclientjavafx.model.auth.RegisterRequest;

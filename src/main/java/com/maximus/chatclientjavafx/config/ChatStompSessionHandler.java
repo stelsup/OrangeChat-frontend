@@ -4,11 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.maximus.chatclientjavafx.JsonUtils;
+import com.maximus.chatclientjavafx.utils.JsonUtils;
 import com.maximus.chatclientjavafx.ApplicationContextHolder;
 import com.maximus.chatclientjavafx.model.auth.MessageResponse;
 import com.maximus.chatclientjavafx.service.IncomingMessageService;
-import com.maximus.chatclientjavafx.service.OutcomingMessageService;
 import com.maximus.chatdto.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.messaging.simp.stomp.StompCommand;
@@ -19,6 +18,7 @@ import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Set;
 
 
 public class ChatStompSessionHandler extends StompSessionHandlerAdapter {
@@ -45,7 +45,7 @@ public class ChatStompSessionHandler extends StompSessionHandlerAdapter {
 
     @Override
     public void handleFrame(StompHeaders headers, Object payload) {
-        System.out.println("---------------Recvd something!!!!!!!!!!!-------------");
+        System.out.println("[TID=" + Thread.currentThread().getId() +"]---------------Recvd something!!!!!!!!!!!-------------");
         String messageType = headers.get("message-type").toString();
 
         ApplicationContext ctx = ApplicationContextHolder.getApplicationContext();
@@ -61,10 +61,11 @@ public class ChatStompSessionHandler extends StompSessionHandlerAdapter {
             switch (messageType){
                 case "[PROFILE_INFO_TYPE]":
                     ProfileInfo profile = JsonUtils.deserializeProfileInfo(jsonNode);
-                    ctx.getBean(IncomingMessageService.class).setMyProfile(profile);
+                    ctx.getBean(IncomingMessageService.class).receivedMyProfile(profile);
                     break;
                 case "[USER_INFO_TYPE]":
                     UserInfo userInfo = JsonUtils.deserializeUserInfo(jsonNode);
+                    ctx.getBean(IncomingMessageService.class).receivedSearchUser(userInfo);
                     break;
                 case "[USER_TILE_TYPE]":
                     UserTile userTile = JsonUtils.deserializeUserTile(jsonNode);
@@ -74,6 +75,7 @@ public class ChatStompSessionHandler extends StompSessionHandlerAdapter {
                     break;
                 case "[ROOM_TILE_TYPE]":
                     RoomTile roomTile = JsonUtils.deserializeRoomTile(jsonNode);
+                    ctx.getBean(IncomingMessageService.class).receivedRoomTile(roomTile);
                     break;
                 case "[MESSAGE_INFO_TYPE]":
                     MessageInfo message = JsonUtils.deserializeMessageInfo(jsonNode);
@@ -86,6 +88,7 @@ public class ChatStompSessionHandler extends StompSessionHandlerAdapter {
                     break;
                 case "[ROOM_TILE_LIST]":
                     List<RoomTile> tileRooms = JsonUtils.deserializeRoomTileList(jsonNode);
+                    ctx.getBean(IncomingMessageService.class).receivedRoomTiles(tileRooms);
                     break;
                 case "[MESSAGE_INFO_LIST]":
                     List<MessageInfo> messages = JsonUtils.deserializeMessageInfoList(jsonNode);
@@ -99,6 +102,10 @@ public class ChatStompSessionHandler extends StompSessionHandlerAdapter {
                     break;
                 case "[PROFILE_EMAIL_TYPE]":
                     ProfileEmail email = JsonUtils.deserializeEmail(jsonNode);
+                    break;
+                case "[SEARCH_TILE_LIST]":
+                    Set<SearchTile> searchItems = JsonUtils.deserializeSearchTileList(jsonNode);
+                    ctx.getBean(IncomingMessageService.class).receivedSearchTiles(searchItems);
                     break;
                 default:
                     System.out.println("---------------Unknown message type!!!!!!!!!!!-------------");

@@ -1,6 +1,6 @@
 package com.maximus.chatclientjavafx.fxcontroller;
 
-import com.maximus.chatclientjavafx.Utils;
+import com.maximus.chatclientjavafx.utils.Utils;
 import com.maximus.chatclientjavafx.fxcore.GUIController;
 import com.maximus.chatclientjavafx.fxcore.GUIParam;
 import com.maximus.chatclientjavafx.service.AuthService;
@@ -94,5 +94,8 @@ public class LoginController extends GUIController {
                 600, 500), "Регистрация пользователя" );
     }
 
+    protected void TimerFunc() {
+
+    }
 
 }

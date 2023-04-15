@@ -49,7 +49,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </ImageView>
-                        <TextField prefHeight="25.0" prefWidth="184.0" promptText="Поиск" styleClass="transparent-background" stylesheets="@../../../../stylesheets/chatstyle.css">
+                        <TextField fx:id="searchGlobal" onAction="#onSearchGlobalKeyPress" prefHeight="25.0" prefWidth="184.0" promptText="Поиск" styleClass="transparent-background" stylesheets="@../../../../stylesheets/chatstyle.css">
                            <font>
                               <Font name="System Italic" size="12.0" />
                            </font>

@@ -4,6 +4,7 @@ import com.maximus.chatclientjavafx.fxcontroller.ChatController;
 import com.maximus.chatclientjavafx.fxcontroller.LoginController;
 import com.maximus.chatclientjavafx.fxcore.GUIController;
 import com.maximus.chatclientjavafx.fxcore.GUIParam;
+import com.maximus.chatclientjavafx.utils.Utils;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.ButtonType;

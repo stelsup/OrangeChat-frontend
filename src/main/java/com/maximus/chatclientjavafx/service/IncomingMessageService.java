@@ -1,25 +1,58 @@
 package com.maximus.chatclientjavafx.service;
 
+import com.maximus.chatclientjavafx.displaymanager.DisplayManager;
 import com.maximus.chatclientjavafx.storage.ChatStorage;
-import com.maximus.chatdto.ProfileInfo;
+import com.maximus.chatdto.*;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class IncomingMessageService {
 
     private final ChatStorage chatStorage;
+    private final DisplayManager displayManager;
 
-    public IncomingMessageService(ChatStorage chatStorage){
-        this.chatStorage =chatStorage;
+    public IncomingMessageService(ChatStorage chatStorage, DisplayManager displayManager) {
+        this.chatStorage = chatStorage;
+        this.displayManager = displayManager;
     }
 
 
-    public void setMyProfile(ProfileInfo info) {
+    public void receivedMyProfile(ProfileInfo info) {
         System.out.println(info.getLogin());
         System.out.println(info.getUniqueID());
 
         chatStorage.setProfile(info);
+    }
+
+    public void receivedSearchUser(UserInfo user){
+        chatStorage.setSearchUserAtSet(user);
+    }
+
+    public void receivedRoomTile(RoomTile room){
+        chatStorage.setRoomTileAtList(room);
+        ///+ отображение в displayManager
+    }
+
+    public void receivedRoomTiles(List<RoomTile> rooms) {
+        chatStorage.setRoomTiles(rooms);
+    }
+
+    public void receivedRoomInfo(RoomInfo room){
 
     }
 
+
+    public void receivedChatMessage(MessageInfo message) {
+//        chatStorage.saveNewMessage(message);
+//        displayManager.showNewMessage();
+    }
+
+
+    public void receivedSearchTiles(Set<SearchTile> tiles) {
+        chatStorage.setSearchItems(tiles);
+        //displayManager.onReceivedSearchTiles();
+    }
 }

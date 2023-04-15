@@ -1,7 +1,11 @@
 package com.maximus.chatclientjavafx.fxcontroller;
 
-import com.maximus.chatclientjavafx.GUIUtils;
+import com.maximus.chatclientjavafx.displaymanager.DisplayManager;
+import com.maximus.chatclientjavafx.displaymanager.ECurrentPageTile;
+import com.maximus.chatclientjavafx.utils.GUIUtils;
 import com.maximus.chatclientjavafx.fxcore.GUIController;
+import com.maximus.chatdto.RoomInfo;
+import com.maximus.chatdto.UserInfo;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,6 +21,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 @FxmlView("newroom.fxml")
@@ -37,10 +44,22 @@ public class NewRoomController extends GUIController {
     @FXML
     TextArea descriptionArea;
 
+    ////////////////////////////////////////////////
+    private final DisplayManager displayManager;
+    ////////////////////////////////////////////////
+
+    private Set<UserInfo> members;
+
+
+    public NewRoomController(DisplayManager displayManager){
+        this.displayManager = displayManager;
+        this.members = new HashSet<>();
+    }
+
 
     @Override
     public void onShow() {
-
+        displayManager.getDisplayNavigator().setCurrentPageTile(ECurrentPageTile.E_TILE_CHATS_NEW_ROOM);
     }
 
     @FXML
@@ -55,11 +74,23 @@ public class NewRoomController extends GUIController {
     protected void newRoomOkButtonOnClick(){
         ////Создание комнаты
 
+        members = displayManager.getSearchUsers();
 
+        RoomInfo newRoom = new RoomInfo();
+        newRoom.setName(roomNameTextField.getText());
+        ///newRoom.setAvatar();
+        newRoom.setOwnerId(displayManager.getCurrentPrincipal().getId());
+        newRoom.setMembers(members);
+
+        displayManager.requestCreateRoom(newRoom);
+
+        displayManager.getDisplayNavigator().setCurrentPageTile(ECurrentPageTile.E_TILE_NONE);
+        this.closeWindow();
     }
 
     @FXML
     protected void newRoomCancelButtonOnClick(){
+        displayManager.getDisplayNavigator().setCurrentPageTile(ECurrentPageTile.E_TILE_NONE);
         this.closeWindow();
     }
 
@@ -69,6 +100,9 @@ public class NewRoomController extends GUIController {
         //// Вызывать окно добавления участников
 
         /// Test
+        displayManager.requestUserById(3L);
+        displayManager.requestUserById(displayManager.getCurrentPrincipal().getId());
+
         String name = "Вован";
         String avatar = "orange_avatar1.png";
         /////
@@ -108,6 +142,8 @@ public class NewRoomController extends GUIController {
         membersHbox.getChildren().remove(parent);
     }
 
+    protected void TimerFunc() {
 
+    }
 
 }

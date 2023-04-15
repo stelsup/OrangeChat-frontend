@@ -6,8 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.maximus.chatclientjavafx.config.ChatStompSessionHandler;
-import com.maximus.chatdto.ProfileInfo;
-import com.maximus.chatdto.UserInfo;
+import com.maximus.chatdto.*;
 import org.springframework.messaging.converter.DefaultContentTypeResolver;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.stomp.StompHeaders;
@@ -74,16 +73,6 @@ public class SocketController {
 
     }
 
-    public void getMyProfile(){
-
-        session.send("/chat-app/profile", "null");
-    }
-
-
-    public void editMyProfile(ProfileInfo info) {
-        session.send("/chat-app/editProfile", info);
-    }
-
     public String getAuthToken() {
         return authToken;
     }
@@ -91,5 +80,24 @@ public class SocketController {
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
     }
+    //------------------------------------------------------------
+    public void getMyProfile(){ session.send("/chat-app/profile", "null"); }
+    public void editMyProfile(ProfileInfo info) {
+        session.send("/chat-app/editProfile", info);
+    }
+    public void changeMyProfilePassword(ProfilePassword password) { session.send("/chat-app/changePassword", password); }
+    public void changeMyEmail(ProfileEmail email) { session.send("/chat-app/changeEmail", email); }
+    //-------------------------------------------------------------
+    public void getUserById(Long uniqueId){
+        session.send("/chat-app/getUserByID", uniqueId);
+    }
+    public void getUserByLogin(String login){
+        session.send("/chat-app/getUserByLogin", login);
+    }
+    //-------------------------------------------------------------
+    public void createRoom(RoomInfo newRoom){ session.send("/chat-app/createRoom", newRoom);}
+    public void requestRoomTiles(Long uniqueId) { session.send("/chat-app/getRooms", uniqueId); }
+    //-------------------------------------------------------------
+    public void generalSearch(String text) {  session.send("/chat-app/generalSearch", text); }
 }
 

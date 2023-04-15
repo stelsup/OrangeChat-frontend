@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -58,10 +59,13 @@
             <Font name="Ebrima" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="serviceLabel" alignment="CENTER" textFill="#ececec" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+      <Label fx:id="serviceLabel" alignment="CENTER" textFill="#b50000" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
          <font>
             <Font name="Ebrima" size="13.0" />
          </font>
+         <GridPane.margin>
+            <Insets left="15.0" />
+         </GridPane.margin>
       </Label>
       <HBox prefHeight="20.0" prefWidth="307.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>
@@ -108,15 +112,11 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
          <children>
-            <TextField fx:id="dateOfBirthTextfield" alignment="CENTER" prefHeight="30.0" prefWidth="270.0" styleClass="text-field-color" stylesheets="@../../../../stylesheets/profilestyle.css">
-               <font>
-                  <Font name="Ebrima" size="14.0" />
-               </font>
+            <DatePicker fx:id="dateOfBirthField" onAction="#editDateofBirthBtnOnClick" prefHeight="30.0" prefWidth="304.0" styleClass="text-field-color" stylesheets="@../../../../stylesheets/profilestyle.css" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets top="7.0" />
                </HBox.margin>
-            </TextField>
-            <Button fx:id="editDateofBirthBtn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#editDateofBirthBtnOnClick" prefHeight="42.0" prefWidth="42.0" styleClass="edit-btn" stylesheets="@../../../../stylesheets/profilestyle.css" text="Button" />
+            </DatePicker>
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">

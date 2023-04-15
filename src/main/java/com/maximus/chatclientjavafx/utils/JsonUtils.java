@@ -1,4 +1,4 @@
-package com.maximus.chatclientjavafx;
+package com.maximus.chatclientjavafx.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -286,5 +286,47 @@ public class JsonUtils {
         return email;
     }
 
+    public static SearchType parseSearchType(String type){
+        if(type == null) return SearchType.USER_TILE_TYPE;
+
+        switch (type){
+            case "USER_TILE_TYPE" :
+                return  SearchType.USER_TILE_TYPE;
+            case "ROOM_TILE_TYPE" :
+                return SearchType.ROOM_TILE_TYPE;
+            default:
+                return SearchType.USER_TILE_TYPE;
+        }
+    }
+
+    public static SearchTile deserializeSearchTile(JsonNode jsonNode){
+        if(jsonNode == null)  return null;
+        SearchTile searchTile = new SearchTile();
+
+        searchTile.setUniqueID(getJsonNodeAsLong(jsonNode, "uniqueID"));
+        searchTile.setType(parseSearchType(getJsonNodeAsString(jsonNode, "type")));
+        searchTile.setAvatar(getJsonNodeAsString(jsonNode, "avatar"));
+        searchTile.setName(getJsonNodeAsString(jsonNode, "name"));
+        searchTile.setLogin(getJsonNodeAsString(jsonNode, "login"));
+        searchTile.setFirstName(getJsonNodeAsString(jsonNode, "firstName"));
+        searchTile.setLastName(getJsonNodeAsString(jsonNode, "lastName"));
+
+        return searchTile;
+    }
+
+    public static Set<SearchTile> deserializeSearchTileList(JsonNode jsonNode){
+        if(jsonNode == null)  return null;
+        if(jsonNode.isArray()){
+            ArrayNode jsonArray = (ArrayNode) jsonNode;
+            Set<SearchTile> items = new HashSet<>();
+
+            for(int i = 0; i < jsonArray.size(); i++){
+                JsonNode jsonElement = jsonArray.get(i);
+                items.add(deserializeSearchTile(jsonElement));
+            }
+            return items;
+        }
+        return null;
+    }
 
 }

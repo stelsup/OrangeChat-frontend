@@ -1,4 +1,4 @@
-package com.maximus.chatclientjavafx;
+package com.maximus.chatclientjavafx.utils;
 
 import com.maximus.chatclientjavafx.fxcore.GUIController;
 import com.maximus.chatclientjavafx.fxcore.GUIParam;
@@ -14,6 +14,7 @@ import net.rgielen.fxweaver.core.FxWeaver;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 
 public class Utils {
 
@@ -104,31 +105,6 @@ public class Utils {
                 return new MessageResponse("Неизвестная ошибка");
         }
     }
-
-
-//    public static Object deserializePayload(LinkedHashMap<String, String> payload) {
-//
-//        MessageType objType = MessageType.fromString(payload.get("msgType"));
-//
-//        switch (objType){
-//
-//            case USER_INFO_TYPE:
-//                UserInfo userInfo = new UserInfo();
-//                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//                //userInfo.setMsgType(objType);
-//                userInfo.setUniqueID(payload.get("uniqueID"));
-//                userInfo.setLogin(payload.get("login"));
-//                userInfo.setFirstName(payload.get("firstName"));
-//                userInfo.setLastName(payload.get("lastName"));
-//                userInfo.setAvatar(payload.get("avatar"));
-//                //userInfo.setDateOfBirth( LocalDate.parse(payload.get("dateOfBirth"), formatter));
-//                //userInfo.setOnlineStatus();
-//                return userInfo;
-//
-//            default:
-//                return null;
-//        }
-//    }
 
 
 

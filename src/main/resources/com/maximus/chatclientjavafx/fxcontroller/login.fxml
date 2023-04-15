@@ -37,12 +37,12 @@
             <Font name="Ebrima" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="loginTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="280.0" stylesheets="@../../../../stylesheets/loginstyle.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <TextField fx:id="loginTextField" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#loginOkButtonOnClick" prefHeight="25.0" prefWidth="280.0" stylesheets="@../../../../stylesheets/loginstyle.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <styleClass>
             <String fx:value="transparent-background" />
             <String fx:value="radius" />
          </styleClass></TextField>
-      <PasswordField fx:id="loginPasswordField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="280.0" stylesheets="@../../../../stylesheets/loginstyle.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+      <PasswordField fx:id="loginPasswordField" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#loginOkButtonOnClick" prefHeight="25.0" prefWidth="280.0" stylesheets="@../../../../stylesheets/loginstyle.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <styleClass>
             <String fx:value="transparent-background" />
             <String fx:value="radius" />

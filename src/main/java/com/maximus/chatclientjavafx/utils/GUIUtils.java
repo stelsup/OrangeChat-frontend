@@ -1,11 +1,9 @@
-package com.maximus.chatclientjavafx;
+package com.maximus.chatclientjavafx.utils;
 
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -81,6 +79,71 @@ public class GUIUtils {
 
 
         return roomBox;
+    }
+
+    public static HBox addSearchTile(String name, String name2, String imageName){
+        HBox tileBox = new HBox();
+        tileBox.setPrefWidth(305);
+        tileBox.setPrefHeight(70);
+        tileBox.setAlignment(Pos.CENTER_LEFT);
+        tileBox.setFillHeight(true);
+        VBox.setMargin(tileBox, new Insets(10,0,0,0));
+        tileBox.getStylesheets().add("dia.css");
+        tileBox.getStyleClass().add("tile-bar");
+
+        ImageView avatar = loadImage(imageName, 60, 60);
+        avatar.setFitWidth(60);
+        avatar.setFitHeight(60);
+        HBox.setMargin(avatar, new Insets(0,0,0,15));
+
+
+        VBox boxName = new VBox();
+        boxName.setPrefWidth(180);
+        boxName.setPrefHeight(70);
+        boxName.setAlignment(Pos.CENTER_LEFT);
+        boxName.setFillWidth(true);
+        boxName.setPadding(new Insets(0,10,0,10));
+
+
+        Label lbRoomName = new Label(name);
+        lbRoomName.setFont(Font.font("Ebrima", FontWeight.BOLD, 19));
+        lbRoomName.setTextFill(Color.WHITE);
+
+        Label lbLastMessage = new Label(name2);
+        lbLastMessage.setFont(Font.font("Ebrima", 18));
+        lbLastMessage.setTextFill(Color.web("#aba28e"));
+
+//
+//        StackPane pnStatus = new StackPane();
+//        pnStatus.setAlignment(Pos.CENTER);
+//        pnStatus.setVisible(visible);
+//        HBox.setHgrow(pnStatus, Priority.ALWAYS);
+//        HBox.setMargin(pnStatus, new Insets(0,5,0,0));
+//
+//        Circle crCountUnread = new Circle();
+//        crCountUnread.setRadius(11);
+//        crCountUnread.setFill(Color.web("#ffd88f"));
+//        crCountUnread.setSmooth(true);
+//        crCountUnread.setStroke(Color.WHITE);
+//        crCountUnread.setStrokeWidth(2);
+//        crCountUnread.setStrokeType(StrokeType.OUTSIDE);
+//
+//        Label lblCountUnread = new Label(Integer.toString(countUnread));
+//        lblCountUnread.setFont(Font.font("Ebrima", FontWeight.NORMAL, 12));
+//        StackPane.setAlignment(lblCountUnread,Pos.CENTER);
+//
+//        pnStatus.getChildren().add(crCountUnread);
+//        pnStatus.getChildren().add(lblCountUnread);
+
+        boxName.getChildren().add(lbRoomName);
+        boxName.getChildren().add(lbLastMessage);
+
+        tileBox.getChildren().add(avatar);
+        tileBox.getChildren().add(boxName);
+       // tileBox.getChildren().add(pnStatus);
+
+
+        return tileBox;
     }
 
     public static HBox addMenuTile(String tileText, String imageName){
