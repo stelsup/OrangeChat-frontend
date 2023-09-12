@@ -1,14 +1,11 @@
 package com.maximus.chatclientjavafx.displaymanager;
-
-import com.maximus.chatclientjavafx.fxcore.GUIController;
 import com.maximus.chatclientjavafx.storage.StorageSignal;
 import javafx.application.Platform;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.function.Function;
+
 
 public class DisplayTimer {
 
@@ -100,6 +97,7 @@ public class DisplayTimer {
 
     @Override
     protected void finalize() {
+        System.out.println("~DisplayTimer()");
         stop();
     }
 }

@@ -170,21 +170,6 @@ public class ProfileController extends GUIController {
     //------------
     //  Remote call
     //------------
-    public void showProfileInformation(ProfileInfo info){
-//
-//        Platform.runLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                if(info != null) {
-//                    lastNameTextfield.setText(info.getLastName());
-//                    firstNameTextfield.setText(info.getFirstName());
-//                    loginTextfield.setText(info.getLogin());
-//                    dateOfBirthField.setValue(info.getDateOfBirth());
-//                    emailTextfield.setText(info.getEmail());
-//                }
-//            }
-//        });
-    }
 
     public void showProfileInformation() {
         ProfileInfo info = displayManager.getCurrentProfileInfo();

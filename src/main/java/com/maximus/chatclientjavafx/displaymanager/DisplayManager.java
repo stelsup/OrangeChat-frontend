@@ -10,8 +10,8 @@ import com.maximus.chatdto.*;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Component
 public class DisplayManager {
@@ -43,7 +43,7 @@ public class DisplayManager {
         this.chatController = chatController;
         this.profileController = profileController;
 
-        //this.displayGlobalMessagesTimer = new DisplayTimer(chatController, "showProfileInformation", chatStorage.getGlobalMessagesSignal());
+        this.displayGlobalMessagesTimer = new DisplayTimer(chatController, "showChatSingleMessage", chatStorage.getGlobalMessagesSignal());
         this.displayGlobalRoomsTimer = new DisplayTimer(chatController, "showRoomTiles", chatStorage.getGlobalRoomTilesSignal());
     }
     //-----------------------------------------------------------
@@ -96,13 +96,10 @@ public class DisplayManager {
         outcomingMessageService.requestMyProfile();
     }
 
-
     //-----------------------------------------------------------
     // UserInfo
     //------------------------------------------------------------
-
-    public Set<UserInfo> getSearchUsers(){return chatStorage.getSearchUsers();}
-
+    public Set<UserInfo> getSearchUsers() {return chatStorage.getSearchUsers();}
     public void requestUserById(Long uniqueId){
         outcomingMessageService.requestGetUserById(uniqueId);
     }
@@ -110,10 +107,16 @@ public class DisplayManager {
     //-----------------------------------------------------------
     // RoomInfo
     //------------------------------------------------------------
+    public void requestRoomInfo(Long uniqueId) {
+        displayCurrentActionTimer = new DisplayTimer(chatController, "showChatWindowHeader", chatStorage.getRoomInfoSignal());
+        displayCurrentActionTimer.startSingleShot(5000);
 
+        outcomingMessageService.requestRoomInfo(uniqueId);
+    }
     public void requestCreateRoom(RoomInfo newRoom){
         outcomingMessageService.requestCreateRoom(newRoom);
     }
+    public RoomInfo getRoomInfo(Long uniqueId) { return chatStorage.getRoomInfo(uniqueId); }
 
     //-----------------------------------------------------------
     // RoomTile
@@ -121,11 +124,11 @@ public class DisplayManager {
     public boolean IsRoomTileEmpty(){
         return chatStorage.getRoomTiles().isEmpty();
     }
-    public List<RoomTile> getRoomTiles(){
+    public Map<Long, RoomTile> getRoomTiles(){
         return chatStorage.getRoomTiles();
     }
     public void requestRoomTiles() {
-        List<RoomTile> rooms = chatStorage.getRoomTiles();
+        Map<Long, RoomTile> rooms = chatStorage.getRoomTiles();
         if(rooms.isEmpty()) {
             outcomingMessageService.requestRoomTiles(chatStorage.getPrincipal().getId());
         } else {
@@ -145,7 +148,31 @@ public class DisplayManager {
     public Set<SearchTile> getSearchResults() {
         return chatStorage.getSearchItems();
     }
+    //-----------------------------------------------------------
+    // Messages
+    //------------------------------------------------------------
+    public void sendMessage(MessageInfo message) { outcomingMessageService.sendMessage(message); }
+ //   public List<MessageInfo> getMessages(Long roomId) { return chatStorage.getMessages(roomId); }
+    public void requestMessages(Long roomId, LocalDateTime userPosition) {
+        MessagesReq req = new MessagesReq();
+        req.setRoomId(roomId);
+        req.setPosition(userPosition);
+        outcomingMessageService.requestMessages(req);
+    }
+    public void requestMessages(Long roomId) {
+        displayCurrentActionTimer = new DisplayTimer(chatController, "showChatWindow", chatStorage.getGlobalMessagesSignal());
+        displayCurrentActionTimer.startSingleShot(5000);
 
+        LocalDateTime pos = chatStorage.getRoomPosition(roomId);
+        MessagesReq req = new MessagesReq();
+        req.setRoomId(roomId);
+        req.setPosition(pos);
+        outcomingMessageService.requestMessages(req);
+    }
+    public Queue<MessageInfo> getMessages(Long roomId) {
+        Queue<MessageInfo> msgs = chatStorage.getMessages(roomId);
+        return msgs;
+    }
     //-----------------------------------------------------------
     // Global refresh
     //------------------------------------------------------------

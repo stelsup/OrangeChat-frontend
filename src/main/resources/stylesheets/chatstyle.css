@@ -64,6 +64,16 @@
     -fx-background-color: #636566;
 }
 
+
+.search-tile-bar-btn{
+    -fx-background-color: #636566;
+}
+
+.search-tile-bar-btn:hover{
+    -fx-background-color: #46474a;
+}
+
+
 .menu-item .label {
     -fx-text-fill: #ececec;
 }

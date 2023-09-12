@@ -96,8 +96,15 @@ public class SocketController {
     }
     //-------------------------------------------------------------
     public void createRoom(RoomInfo newRoom){ session.send("/chat-app/createRoom", newRoom);}
+    public void requestRoomInfo(Long uniqueId) { session.send("/chat-app/getRoomInfo", uniqueId);}
     public void requestRoomTiles(Long uniqueId) { session.send("/chat-app/getRooms", uniqueId); }
     //-------------------------------------------------------------
-    public void generalSearch(String text) {  session.send("/chat-app/generalSearch", text); }
+    public void generalSearch(String text) { session.send("/chat-app/generalSearch", text); }
+    //-------------------------------------------------------------
+    public void sendMessage(MessageInfo message) { session.send("/chat-app/sendMessage", message); }
+  //  public void requestMessages(Long roomId) { session.send("/chat-app/getLastMessages", roomId); }
+    public void requestMessages(MessagesReq req) { session.send("/chat-app/getMessages", req); }
+
+
 }
 

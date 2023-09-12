@@ -4,7 +4,7 @@ public class DisplayNavigator {
 
     private ECurrentPage currentPage;
     private ECurrentPageTile currentPageTile;
-    private Long currentRoomID;
+    private CurrentEntity currentEntityTile;
 
 
     public ECurrentPage getCurrentPage() {
@@ -23,15 +23,13 @@ public class DisplayNavigator {
         this.currentPageTile = currentPageTile;
     }
 
-    public Long getCurrentRoomID() {
-        return currentRoomID;
+    public CurrentEntity getCurrentEntityTile() {
+        return currentEntityTile;
     }
 
-    public void setCurrentRoomID(Long currentRoomID) {
-        this.currentRoomID = currentRoomID;
+    public void setCurrentEntityTile(CurrentEntity currentEntityTile) {
+        this.currentEntityTile = currentEntityTile;
     }
-
-
 
     public  boolean isInSearchMode(){
         return  currentPage == ECurrentPage.E_PAGE_SEARCH;

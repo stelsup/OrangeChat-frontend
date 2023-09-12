@@ -161,7 +161,7 @@ public class JsonUtils {
         if(jsonNode == null)  return null;
         RoomInfo room = new RoomInfo();
 
-        room.setId(getJsonNodeAsLong(jsonNode,"uniqueID"));
+        room.setUniqueID(getJsonNodeAsLong(jsonNode,"uniqueID"));
         room.setName(getJsonNodeAsString(jsonNode, "name"));
         room.setAvatar(getJsonNodeAsString(jsonNode, "avatar"));
         room.setDateOfModify(parseDateTime(getJsonNodeAsString(jsonNode, "dateOfModify")));

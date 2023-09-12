@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
@@ -25,10 +26,11 @@
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="92.0" styleClass="dark-gray-background" stylesheets="@../../../../stylesheets/chatstyle.css">
                <children>
                   <Pane prefHeight="318.0" prefWidth="92.0" />
-                  <Button fx:id="sidebarSearchBtn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnSearchClick" prefHeight="75.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
-                  <Button fx:id="sidebarMessageBtn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnMessageClick" prefHeight="75.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
-                  <Button fx:id="sidebarProfileBtn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnProfileClick" prefHeight="75.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
-                  <Button fx:id="sidebarSettingsBtn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnSettingsClick" prefHeight="75.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
+                  <Button fx:id="sidebarSearchBtn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnSearchClick" prefHeight="70.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
+                  <Button fx:id="sidebarMessageBtn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnMessageClick" prefHeight="70.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
+                  <Button fx:id="sidebarGroupMessageBtn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnMessageClick" prefHeight="70.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
+                  <Button fx:id="sidebarProfileBtn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnProfileClick" prefHeight="70.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
+                  <Button fx:id="sidebarSettingsBtn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnSettingsClick" prefHeight="70.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
                   <Pane prefHeight="283.0" prefWidth="92.0" VBox.vgrow="ALWAYS" />
                   <Button fx:id="sidebarExitBtn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnExitClick" prefHeight="60.0" prefWidth="82.0" styleClass="sidebar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button">
                      <VBox.margin>
@@ -49,16 +51,14 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </ImageView>
-                        <TextField fx:id="searchGlobal" onAction="#onSearchGlobalKeyPress" prefHeight="25.0" prefWidth="184.0" promptText="Поиск" styleClass="transparent-background" stylesheets="@../../../../stylesheets/chatstyle.css">
+                        <TextField fx:id="searchGlobal" onAction="#onSearchGlobalKeyPress" prefHeight="25.0" prefWidth="218.0" promptText="Поиск" styleClass="transparent-background" stylesheets="@../../../../stylesheets/chatstyle.css">
                            <font>
                               <Font name="System Italic" size="12.0" />
                            </font>
                            <HBox.margin>
-                              <Insets right="2.0" />
+                              <Insets right="7.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button fx:id="search_btn_add" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnAddClick" prefHeight="30.0" prefWidth="30.0" styleClass="search-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
-                        <Button fx:id="search_btn_delete" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnDeleteClick" prefHeight="30.0" prefWidth="30.0" styleClass="search-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
@@ -198,6 +198,65 @@
                                     <Insets top="10.0" />
                                  </VBox.margin>
                               </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="305.0" styleClass="tile-bar" stylesheets="@../../../../stylesheets/chatstyle.css">
+                                 <children>
+                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../../img/orange_avatar1.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets left="15.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                    <VBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="178.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="150.0" text="Вован" textFill="WHITE">
+                                             <font>
+                                                <Font name="Ebrima Bold" size="19.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="17.0" prefWidth="176.0" text="You: Last message" textFill="#aba28e">
+                                             <font>
+                                                <Font name="Ebrima" size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <padding>
+                                          <Insets left="10.0" right="10.0" />
+                                       </padding>
+                                    </VBox>
+                                    <Button alignment="CENTER" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="60.0" prefWidth="65.0" styleClass="search-tile-bar-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button">
+                                       <HBox.margin>
+                                          <Insets right="7.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="305.0" styleClass="dark-gray-background" stylesheets="@../../../../stylesheets/chatstyle.css">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="25.0" prefWidth="323.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label alignment="CENTER" prefHeight="17.0" prefWidth="150.0" text="Пользователи" textFill="WHITE">
+                                             <font>
+                                                <Font name="Ebrima Bold" size="19.0" />
+                                             </font>
+                                             <rotationAxis>
+                                                <Point3D />
+                                             </rotationAxis>
+                                          </Label>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <padding>
+                                          <Insets left="5.0" right="5.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                      </content>
@@ -243,7 +302,7 @@
             </HBox>
             <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <content>
-                  <VBox prefHeight="551.0" prefWidth="605.0" styleClass="chatroom-background" stylesheets="@../../../../stylesheets/chatstyle.css">
+                  <VBox fx:id="vBoxRoomBody" prefHeight="551.0" prefWidth="605.0" styleClass="chatroom-background" stylesheets="@../../../../stylesheets/chatstyle.css">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0">
                            <children>
@@ -582,7 +641,7 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <TextField prefHeight="45.0" prefWidth="449.0" promptText="Написать сообщение...">
+                  <TextField fx:id="input_message_field" onAction="#onInputMessageFieldAction" prefHeight="45.0" prefWidth="449.0" promptText="Написать сообщение...">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font>
@@ -590,7 +649,7 @@
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="interface_btn_send" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" styleClass="interface-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button">
+                  <Button fx:id="interface_btn_send" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnSendClick" prefHeight="60.0" prefWidth="60.0" styleClass="interface-btn" stylesheets="@../../../../stylesheets/chatstyle.css" text="Button">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>

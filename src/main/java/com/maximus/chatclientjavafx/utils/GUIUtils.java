@@ -1,9 +1,12 @@
 package com.maximus.chatclientjavafx.utils;
 
+import com.maximus.chatdto.EOnlineStatusInfo;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -113,34 +116,22 @@ public class GUIUtils {
         lbLastMessage.setFont(Font.font("Ebrima", 18));
         lbLastMessage.setTextFill(Color.web("#aba28e"));
 
-//
-//        StackPane pnStatus = new StackPane();
-//        pnStatus.setAlignment(Pos.CENTER);
-//        pnStatus.setVisible(visible);
-//        HBox.setHgrow(pnStatus, Priority.ALWAYS);
-//        HBox.setMargin(pnStatus, new Insets(0,5,0,0));
-//
-//        Circle crCountUnread = new Circle();
-//        crCountUnread.setRadius(11);
-//        crCountUnread.setFill(Color.web("#ffd88f"));
-//        crCountUnread.setSmooth(true);
-//        crCountUnread.setStroke(Color.WHITE);
-//        crCountUnread.setStrokeWidth(2);
-//        crCountUnread.setStrokeType(StrokeType.OUTSIDE);
-//
-//        Label lblCountUnread = new Label(Integer.toString(countUnread));
-//        lblCountUnread.setFont(Font.font("Ebrima", FontWeight.NORMAL, 12));
-//        StackPane.setAlignment(lblCountUnread,Pos.CENTER);
-//
-//        pnStatus.getChildren().add(crCountUnread);
-//        pnStatus.getChildren().add(lblCountUnread);
+        Button addBtn = new Button();
+        addBtn.setAlignment(Pos.CENTER);
+        addBtn.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        addBtn.setGraphic(loadImage("add.png",30, 30));
+        addBtn.setPrefWidth(65);
+        addBtn.setPrefHeight(60);
+        addBtn.getStylesheets().add("chatstyle.css");
+        addBtn.getStyleClass().add("search-tile-bar-btn");
+        HBox.setMargin(addBtn, new Insets(0,7,0,0));
 
         boxName.getChildren().add(lbRoomName);
         boxName.getChildren().add(lbLastMessage);
 
         tileBox.getChildren().add(avatar);
         tileBox.getChildren().add(boxName);
-       // tileBox.getChildren().add(pnStatus);
+        tileBox.getChildren().add(addBtn);
 
 
         return tileBox;
@@ -215,33 +206,42 @@ public class GUIUtils {
     }
 
 
-    public static HBox changeStatus(String roomStatus){
+    public static HBox changeStatus(EOnlineStatusInfo roomStatus){
         HBox statusBox = new HBox();
         statusBox.setFillHeight(true);
         statusBox.setAlignment(Pos.CENTER_LEFT);
         HBox.setMargin(statusBox, new Insets(0,0,0,10));
 
-        Label status = new Label("Online");
+        Label status = new Label();
         status.setFont(Font.font("Ebrima", 16));
         status.setTextFill(Color.web("#9da7a7"));
         status.setMinWidth(Region.USE_PREF_SIZE);
         status.setMaxWidth(100);
 
-        if(roomStatus.equals("Online")){
-            Circle circle = new Circle(6, Color.web("#3ead7d"));
+        Circle circle;
+
+        if(roomStatus == EOnlineStatusInfo.ONLINE){
+            status.setText("Online");
+            circle = new Circle(6, Color.web("#3ead7d"));
             circle.setStroke(Color.WHITE);
             circle.setStrokeType(StrokeType.OUTSIDE);
             circle.setStrokeWidth(1);
-
-            HBox.setMargin(status, new Insets(0,0,0,5));
-            statusBox.getChildren().addAll(circle, status);
-            return statusBox;
-        }else{
-
-            statusBox.getChildren().add(status);
-            return statusBox;
+        }else if(roomStatus == EOnlineStatusInfo.AWAY){
+            status.setText("Away");
+            circle = new Circle(6, Color.web("#f8a426"));
+            circle.setStroke(Color.WHITE);
+            circle.setStrokeType(StrokeType.OUTSIDE);
+            circle.setStrokeWidth(1);
+        }else /*if(roomStatus == EOnlineStatusInfo.OFFLINE)*/{
+            status.setText("Offline");
+            circle = new Circle(6, Color.web("#fc5a5a"));
+            circle.setStroke(Color.WHITE);
+            circle.setStrokeType(StrokeType.OUTSIDE);
+            circle.setStrokeWidth(1);
         }
-
+        HBox.setMargin(status, new Insets(0,0,0,5));
+        statusBox.getChildren().addAll(circle, status);
+        return statusBox;
     }
 
 
@@ -305,6 +305,37 @@ public class GUIUtils {
         return member;
     }
 
+
+
+    public static HBox addSearchTileSeparator(String text){
+
+        HBox tileBox = new HBox();
+        tileBox.setPrefWidth(305);
+        tileBox.setPrefHeight(25);
+        tileBox.setAlignment(Pos.CENTER_LEFT);
+        tileBox.setFillHeight(true);
+        tileBox.getStylesheets().add("chatstyle.css");
+        tileBox.getStyleClass().add("dark-gray-background");
+
+
+        VBox boxName = new VBox();
+        boxName.setPrefWidth(140);
+        boxName.setPrefHeight(70);
+        boxName.setAlignment(Pos.CENTER);
+        boxName.setFillWidth(true);
+        HBox.setHgrow(boxName, Priority.ALWAYS);
+        boxName.setPadding(new Insets(0,5,0,5));
+
+        Label title = new Label(text);
+        title.setFont(Font.font("Ebrima", 18));
+        title.setTextFill(Color.web("#ffffff"));
+        title.setAlignment(Pos.CENTER);
+
+        boxName.getChildren().add(title);
+        tileBox.getChildren().add(boxName);
+
+        return  tileBox;
+    }
 
 
 

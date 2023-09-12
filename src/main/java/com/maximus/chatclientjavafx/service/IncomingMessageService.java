@@ -26,30 +26,15 @@ public class IncomingMessageService {
 
         chatStorage.setProfile(info);
     }
-
     public void receivedSearchUser(UserInfo user){
         chatStorage.setSearchUserAtSet(user);
     }
+    public void receivedRoomTile(RoomTile room){ chatStorage.setRoomTileAtList(room); }
+    public void receivedRoomTiles(List<RoomTile> rooms) { chatStorage.setRoomTiles(rooms); }
+    public void receivedRoomInfo(RoomInfo room){ chatStorage.setRoomInfo(room); }
 
-    public void receivedRoomTile(RoomTile room){
-        chatStorage.setRoomTileAtList(room);
-        ///+ отображение в displayManager
-    }
-
-    public void receivedRoomTiles(List<RoomTile> rooms) {
-        chatStorage.setRoomTiles(rooms);
-    }
-
-    public void receivedRoomInfo(RoomInfo room){
-
-    }
-
-
-    public void receivedChatMessage(MessageInfo message) {
-//        chatStorage.saveNewMessage(message);
-//        displayManager.showNewMessage();
-    }
-
+    public void receivedChatMessage(MessageInfo message) { chatStorage.setMessage(message);}
+    public void receivedChatMessageList(List<MessageInfo> messages) { chatStorage.setMessages(messages); }
 
     public void receivedSearchTiles(Set<SearchTile> tiles) {
         chatStorage.setSearchItems(tiles);

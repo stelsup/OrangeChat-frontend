@@ -72,6 +72,7 @@ public class ChatStompSessionHandler extends StompSessionHandlerAdapter {
                     break;
                 case "[ROOM_INFO_TYPE]":
                     RoomInfo roomInfo = JsonUtils.deserializeRoomInfo(jsonNode);
+                    ctx.getBean(IncomingMessageService.class).receivedRoomInfo(roomInfo);
                     break;
                 case "[ROOM_TILE_TYPE]":
                     RoomTile roomTile = JsonUtils.deserializeRoomTile(jsonNode);
@@ -79,6 +80,7 @@ public class ChatStompSessionHandler extends StompSessionHandlerAdapter {
                     break;
                 case "[MESSAGE_INFO_TYPE]":
                     MessageInfo message = JsonUtils.deserializeMessageInfo(jsonNode);
+                    ctx.getBean(IncomingMessageService.class).receivedChatMessage(message);
                     break;
                 case "[USER_INFO_LIST]":
                     List<UserInfo> users = JsonUtils.deserializeUserInfoList(jsonNode);
@@ -92,6 +94,7 @@ public class ChatStompSessionHandler extends StompSessionHandlerAdapter {
                     break;
                 case "[MESSAGE_INFO_LIST]":
                     List<MessageInfo> messages = JsonUtils.deserializeMessageInfoList(jsonNode);
+                    ctx.getBean(IncomingMessageService.class).receivedChatMessageList(messages);
                     break;
                 case "[MESSAGE_RESPONSE]":
                     MessageResponse messageResponse = JsonUtils.deserializeMessageResponse(jsonNode);

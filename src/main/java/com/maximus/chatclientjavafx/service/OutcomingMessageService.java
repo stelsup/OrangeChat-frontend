@@ -2,10 +2,7 @@ package com.maximus.chatclientjavafx.service;
 
 import com.maximus.chatclientjavafx.controller.SocketController;
 import com.maximus.chatclientjavafx.storage.ChatStorage;
-import com.maximus.chatdto.ProfileEmail;
-import com.maximus.chatdto.ProfileInfo;
-import com.maximus.chatdto.ProfilePassword;
-import com.maximus.chatdto.RoomInfo;
+import com.maximus.chatdto.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,4 +26,8 @@ public class OutcomingMessageService {
     public void requestCreateRoom(RoomInfo newRoom) {socketController.createRoom(newRoom);}
     public void requestRoomTiles(Long uniqueId) { socketController.requestRoomTiles(uniqueId); }
     public void requestSearch(String text) { socketController.generalSearch(text);}
+    public void requestRoomInfo(Long uniqueId) { socketController.requestRoomInfo(uniqueId); }
+
+    public void sendMessage(MessageInfo message) { socketController.sendMessage(message); }
+    public void requestMessages(MessagesReq req) { socketController.requestMessages(req); }
 }
